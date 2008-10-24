@@ -20,30 +20,25 @@
       // Self is the parent li, because while we want to work from there, the span needs the 
       // click so as to avoid the re-firing of the click even on the new elements
       var self = jQuery(this).parents("li");
-      var editable_span = self.find("span.editable")
-      var edit = jQuery('<input type="text" value="' + editable_span.text() + '"/>');
-      var save = jQuery('<input type="submit" value="Save" />');
-      var cancel = jQuery('<input type="submit" value="Cancel" />');
-      
+      var editable_span = self.find("span.editable");
+
       editable_span.css("display", "none");
-      self.append(edit);
-      self.append(save);
-      self.append(cancel);
+      self.append('<input type="text" value="' + editable_span.text() + '"/>')
+          .append('<input type="submit" class="save_btn" value="Save" />')
+          .append('<input type="submit" class="cancel_btn" value="Cancel" />');
       
       function revertFromEdit() {
         editable_span.css("display", "block");        
-        edit.remove();
-        save.remove();
-        cancel.remove();        
+        self.find("input").remove();       
       };
       
-      save.click(function() {
+      self.find("input.save_btn").click(function() {
         updateTask(self);
         revertFromEdit();
         return false;
       });
       
-      cancel.click(function() {
+      self.find("input.cancel_btn").click(function() {
         revertFromEdit();
         return false;
       });
