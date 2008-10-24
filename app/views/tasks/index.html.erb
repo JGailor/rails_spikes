@@ -18,7 +18,7 @@
     
     jQuery("ul#tasks li span").click(function() {
       // Self is the parent li, because while we want to work from there, the span needs the 
-      // click so as to avoid the re-firing of the click even on the new elements
+      // click so as to avoid the re-firing of the click event on the new elements
       var self = jQuery(this).parents("li");
       var editable_span = self.find("span.editable");
 
