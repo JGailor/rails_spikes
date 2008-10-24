@@ -1,0 +1,59 @@
+<script type="text/javascript" charset="utf-8">
+  jQuery(function() {
+    function updateTask(task) {
+      var task = jQuery(task);
+      jQuery.ajax({
+        url: "/tasks/" + task.attr("id"),
+        type: "PUT",
+        dataType: "json",
+        data: "task[name]=" + task.find("input[type=text]").val() + "&authenticity_token=" + '<%= form_authenticity_token %>', 
+        success: function(task_update) {
+          task.find("span.editable").text(task_update.task.name);
+        },
+        error: function() {
+          alert("There was a problem updating the data");
+        }
+      });
+    };
+    
+    jQuery("ul#tasks li").click(function() {
+      var self = jQuery(this);
+      var editable_span = jQuery(this).find("span.editable")
+      var edit = jQuery('<input type="text" value="' + editable_span.text() + '"/>');
+      var save = jQuery('<input type="submit" value="Save" />');
+      var cancel = jQuery('<input type="submit" value="Cancel" />');
+      
+      editable_span.css("display", "none");
+      self.append(edit);
+      self.append(save);
+      self.append(cancel);
+      
+      function revertFromEdit() {
+        editable_span.css("display", "block");        
+        edit.remove();
+        save.remove();
+        cancel.remove();        
+      };
+      
+      edit.click(function() { return false; });
+      
+      save.click(function() {
+        updateTask(self);
+        revertFromEdit();
+        return false;
+      });
+      
+      cancel.click(function() {
+        revertFromEdit();
+        return false;
+      });
+    });
+  });
+</script>
+
+<h2>Tasks</h2>
+<ul id="tasks">
+  <% @tasks.each do |task| -%>
+    <li id="<%= task.id %>"><span class="editable"><%= task.name %></span></li>
+  <% end -%>
+</ul>
