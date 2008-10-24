@@ -16,9 +16,11 @@
       });
     };
     
-    jQuery("ul#tasks li").click(function() {
-      var self = jQuery(this);
-      var editable_span = jQuery(this).find("span.editable")
+    jQuery("ul#tasks li span").click(function() {
+      // Self is the parent li, because while we want to work from there, the span needs the 
+      // click so as to avoid the re-firing of the click even on the new elements
+      var self = jQuery(this).parents("li");
+      var editable_span = self.find("span.editable")
       var edit = jQuery('<input type="text" value="' + editable_span.text() + '"/>');
       var save = jQuery('<input type="submit" value="Save" />');
       var cancel = jQuery('<input type="submit" value="Cancel" />');
@@ -34,8 +36,6 @@
         save.remove();
         cancel.remove();        
       };
-      
-      edit.click(function() { return false; });
       
       save.click(function() {
         updateTask(self);
