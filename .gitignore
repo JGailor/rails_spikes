@@ -1,2 +1,5 @@
+.DS_Store
+public/.DS_Store
+public/javascripts/.DS_Store
 log/*
 tmp/*

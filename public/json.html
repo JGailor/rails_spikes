@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html xml:lang="en">
+  <head>
+    <title>JSON Test</title>
+    <script src="javascripts/jquery-1.2.6.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/jquery.json-1.2.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      var data = '{"name": "jeremy", "age": 29}';
+      var json = eval('(' + data + ')');
+      // var json = jQuery.evalJSON(data);
+      alert("name = " + json.name);
+      alert("age = " + json.age);
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
